@@ -1,0 +1,43 @@
+<web-app version="3.0">
+    <display-name>Archetype Created Web Application</display-name>
+    <servlet>
+        <servlet-name>Servl</servlet-name>
+        <servlet-class>com.training.ServletLogin.controller.Servlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Servl</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>com.training.ServletLogin.filter.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AdminAuthFilter</filter-name>
+        <filter-class>com.training.ServletLogin.filter.AdminAuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminAuthFilter</filter-name>
+        <url-pattern>/api/admin/*</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>
+            com.training.ServletLogin.listener.SessionListener
+        </listener-class>
+    </listener>
+
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+</web-app>
+
