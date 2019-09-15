@@ -1,15 +1,18 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${param.lang}"/>
+<fmt:setBundle basename="messages"/>
 
-<!DOCTYPE html>
-<html>
+<html lang="${param.lang}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Trucking service</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="assets/css/styles2.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="/assets/css/styles2.min.css">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
@@ -22,11 +25,11 @@
             <div class="collapse navbar-collapse"
                  id="navcol-1">
                 <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="#calculate" ></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#calculate"></a></li>
                 </ul>
-                <span class="navbar-text actions"> <a href="/user" class="login" >Login</a><a
-                        class="btn btn-light action-button" role="button" href="/reg" "
-                        style="background-color: #00bce2;">Reg</a>
+                <span class="navbar-text actions"> <a href="/api/login" class="login"><fmt:message key="login"/></a><a
+                        class="btn btn-light action-button" role="button" href="/reg"
+                        style="background-color: #00bce2;"><fmt:message key="register"/></a>
                 </span>
                 <button class="btn" type="button"
                         value="uk"
@@ -46,36 +49,36 @@
     <div class="container">
         <div class="intro">
             <h2 class="text-center"></h2>
-            <p class="text-center" ></p>
+            <p class="text-center"></p>
         </div>
         <div class="row features" style="height: 337px;">
             <div class="col-sm-6 col-lg-4 item"><i class="fa fa-map-marker icon"></i>
-                <h3 class="name" ></h3>
+                <h3 class="name"></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
             </div>
             <div class="col-sm-6 col-lg-4 item"><i class="fa fa-clock-o icon"></i>
-                <h3 class="name" ></h3>
+                <h3 class="name"></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
             </div>
             <div class="col-sm-6 col-lg-4 item"><i class="fa fa-list-alt icon"></i>
-                <h3 class="name" ></h3>
+                <h3 class="name"></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
             </div>
             <div class="col-sm-6 col-lg-4 item"><i class="fa fa-leaf icon"></i>
-                <h3 class="name" ></h3>
+                <h3 class="name"></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
             </div>
             <div class="col-sm-6 col-lg-4 item"><i class="fa fa-plane icon"></i>
-                <h3 class="name" ></h3>
+                <h3 class="name"></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
             </div>
             <div class="col-sm-6 col-lg-4 item"><i class="fa fa-phone icon"></i>
-                <h3 class="name" ></h3>
+                <h3 class="name"></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
             </div>
@@ -86,7 +89,7 @@
     <div id="calculate" class="container border rounded-0 border-success" style="height: 320px;">
         <div class="row" style="height: 302px;">
             <div class="col-md-6" style="background-color: rgba(41,152,239,0.17);height: 302px;">
-                <h2 class="text-center" style="margin: 110px;" ></h2>
+                <h2 class="text-center" style="margin: 110px;"><fmt:message key="count.price"/></h2>
             </div>
             <div class="col-md-6"
                  style="background-color: rgba(41,152,239,0.17);height: 302px;color: rgb(20,133,238);filter: blur(0px) brightness(100%) grayscale(0%);">
@@ -112,7 +115,7 @@
                                                    style="width: 250px;"></div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit" style="background-color: #5bbf21;"
-                                ></button>
+                        ></button>
                     </div>
                 </form>
             </div>
@@ -123,21 +126,21 @@
     <div class="container" style="height: 633px;">
         <div class="intro">
             <h2 class="text-center"></h2>
-            <p class="text-center" ></p>
+            <p class="text-center"></p>
         </div>
         <div class="row projects">
             <div class="col-sm-6 col-lg-4 item"><img class="img-fluid" src="/assets/img/desk.jpg">
-                <h3 class="name" ></h3>
+                <h3 class="name"></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p>
             </div>
             <div class="col-sm-6 col-lg-4 item"><img class="img-fluid" src="/assets/img/building.jpg">
-                <h3 class="name" ></h3>
+                <h3 class="name"></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p>
             </div>
             <div class="col-sm-6 col-lg-4 item"><img class="img-fluid" src="/assets/img/loft.jpg">
-                <h3 class="name" ></h3>
+                <h3 class="name"></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p>
             </div>
@@ -159,9 +162,9 @@
         <p class="copyright">TruckKing © 2019</p>
     </footer>
 </div>
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/js/script2.min.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/js/script2.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#locales").click(function () {

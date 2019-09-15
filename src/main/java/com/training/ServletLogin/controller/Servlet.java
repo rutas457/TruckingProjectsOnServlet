@@ -28,6 +28,7 @@ public class Servlet extends HttpServlet {
         commands.put("admin/page", new AdminPageCommand());
         commands.put("user/page", new UserPageCommand());
         commands.put("logout", new LogoutCommand());
+        commands.put("landing", new LandingCommand());
     }
 
     public void doGet(HttpServletRequest request,
@@ -44,11 +45,10 @@ public class Servlet extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String path = request.getRequestURI();
-        System.out.println(path);
         path = path.replaceAll(".*/api/", "");
         System.out.println(path);
         Command command = commands.getOrDefault(path,
-                (r) -> "/register.jsp)");
+                (r) -> "/index.jsp");
         String page = command.execute(request);
         if (page.contains("redirect")) {
             response.sendRedirect(page.replace("redirect:", "/api"));
