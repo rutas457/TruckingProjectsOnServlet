@@ -26,6 +26,6 @@ public class LogoutCommand implements Command {
                 .setAttribute("loggedUsers", loggedUsers);
 
         logger.info("User " + currentUser +" successfully logged out");
-        return "redirect:/login";
+        return "redirect:/";
     }
 }

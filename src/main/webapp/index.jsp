@@ -28,7 +28,7 @@
                     <li class="nav-item"><a class="nav-link" href="#calculate"></a></li>
                 </ul>
                 <span class="navbar-text actions"> <a href="/api/login" class="login"><fmt:message key="login"/></a><a
-                        class="btn btn-light action-button" role="button" href="/reg"
+                        class="btn btn-light action-button" role="button" href="#myModal" data-toggle="modal"
                         style="background-color: #00bce2;"><fmt:message key="register"/></a>
                 </span>
                 <button class="btn" type="button"
@@ -162,9 +162,48 @@
         <p class="copyright">TruckKing © 2019</p>
     </footer>
 </div>
+<div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button></div>
+            <div class="modal-body">
+                <div>
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-1">Sign in</a></li>
+                        <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-2">Sign up</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane" role="tabpanel" id="tab-1">
+                            <p></p>
+                            <form method="post" action="/api/login">
+                                <div class="form-group"><i class="fa fa-lock d-lg-flex justify-content-lg-center" style="font-size: 32px;"></i></div>
+                                <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+                                <div class="form-group"><input class="form-control" type="password" name="pass" placeholder="Password"></div>
+                                <div class="form-group"><button class="btn btn-primary d-lg-flex ml-auto" type="submit">Submit</button></div>
+                            </form>
+                        </div>
+                        <div class="tab-pane active" role="tabpanel" id="tab-2">
+                            <p></p>
+                            <form>
+                                <div class="form-group"><i class="fa fa-key d-lg-flex justify-content-lg-center" style="font-size: 32px;"></i></div>
+                                <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Name"></div>
+                                <div class="form-group"><input class="form-control" type="text" name="surname" placeholder="Surname"></div>
+                                <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+                                <div class="form-group"><input class="form-control" type="password" name="pass" placeholder="Password"></div>
+                                <div class="form-group ml-auto"><button class="btn btn-primary d-lg-flex ml-auto justify-content-lg-end" type="submit">Submit</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="/assets/js/script2.min.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
         $("#locales").click(function () {
