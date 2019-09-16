@@ -18,7 +18,7 @@ public class OrderMapper implements ObjectMapper<Order> {
     @Override
     public Optional<Order> extractFromResultSet(ResultSet rs) throws SQLException {
         Order order = Order.builder()
-                .id(rs.getLong("id"))
+                .id(rs.getLong("user_order.id"))
                 .weight(rs.getInt("weight"))
                 .cargoName(rs.getString("cargo_name"))
                 .cargoType(CargoType.valueOf(rs.getString("cargo_type")))

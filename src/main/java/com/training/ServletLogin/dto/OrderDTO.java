@@ -73,6 +73,19 @@ public class OrderDTO {
         this.weight = weight;
     }
 
+    @Override
+    public String toString() {
+        return "OrderDTO{" +
+                "cargoName='" + cargoName + '\'' +
+                ", fromCity='" + fromCity + '\'' +
+                ", toCity='" + toCity + '\'' +
+                ", shippingStart='" + shippingStart + '\'' +
+                ", shippingEnd='" + shippingEnd + '\'' +
+                ", cargoType=" + cargoType +
+                ", weight=" + weight +
+                '}';
+    }
+
     public static OrderDTO.Builder builder() {
         return new OrderDTO().new Builder();
     }

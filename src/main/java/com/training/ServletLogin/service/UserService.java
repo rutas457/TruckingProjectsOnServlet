@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserService {
-    DaoFactory daoFactory = DaoFactory.getInstance();
+    private DaoFactory daoFactory = DaoFactory.getInstance();
 
     public Optional<User> findByEmail(String email) {
         try (UserDao dao = daoFactory.createUserDao()) {
