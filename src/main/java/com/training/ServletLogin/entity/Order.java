@@ -33,7 +33,7 @@ public class Order {
         return Double.valueOf(route.getDistanceInKm() * weight * tonPerKm * cargoType.getPriceCoefficient()).longValue();
     }
 
-    public static User.Builder builder() {
+    public static Order.Builder builder() {
         return new Order().new Builder();
     }
 
