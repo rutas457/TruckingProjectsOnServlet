@@ -1,12 +1,6 @@
 package com.training.ServletLogin.dto;
 
-import com.training.ServletLogin.entity.Order;
-import com.training.ServletLogin.entity.Route;
-import com.training.ServletLogin.entity.User;
 import com.training.ServletLogin.entity.enumerated.CargoType;
-import com.training.ServletLogin.entity.enumerated.OrderStatus;
-
-import java.time.LocalDate;
 
 public class OrderDTO {
     private String cargoName;
@@ -94,23 +88,23 @@ public class OrderDTO {
         }
 
         public OrderDTO.Builder from(String from) {
-            OrderDTO.this.fromCity=from;
+            OrderDTO.this.fromCity = from;
 
             return this;
         }
 
         public OrderDTO.Builder to(String to) {
-            OrderDTO.this.toCity=to;
+            OrderDTO.this.toCity = to;
             return this;
         }
 
         public OrderDTO.Builder shippingStart(String shippingStart) {
-            OrderDTO.this.shippingStart=shippingStart;
+            OrderDTO.this.shippingStart = shippingStart;
             return this;
         }
 
         public OrderDTO.Builder shippingEnd(String shippingEnd) {
-            OrderDTO.this.shippingEnd=shippingEnd;
+            OrderDTO.this.shippingEnd = shippingEnd;
             return this;
         }
 

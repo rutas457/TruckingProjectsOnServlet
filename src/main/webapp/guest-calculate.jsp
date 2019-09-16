@@ -5,7 +5,7 @@
 
 <html lang="${param.lang}">
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
     <meta charset="utf-8">

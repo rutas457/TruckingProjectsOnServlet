@@ -5,9 +5,10 @@ import com.training.ServletLogin.dao.impl.JDBCDaoFactory;
 public abstract class DaoFactory {
     private static DaoFactory daoFactory;
 
-    public abstract UserDao createStudentDao();
+    public abstract UserDao createUserDao();
 
     public abstract OrderDao createOrderDao();
+    public abstract RouteDao createRouteDao();
 
     public static DaoFactory getInstance() {
         if (daoFactory == null) {

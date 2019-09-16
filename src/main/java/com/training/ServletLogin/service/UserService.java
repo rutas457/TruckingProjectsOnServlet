@@ -12,7 +12,7 @@ public class UserService {
     DaoFactory daoFactory = DaoFactory.getInstance();
 
     public Optional<User> findByEmail(String email) {
-        try (UserDao dao = daoFactory.createStudentDao()) {
+        try (UserDao dao = daoFactory.createUserDao()) {
             return dao.findByEmail(email);
         }
     }
@@ -25,13 +25,13 @@ public class UserService {
                 .password(userDTO.getPassword())
                 .roles("USER")
                 .build();
-        try (UserDao dao = daoFactory.createStudentDao()) {
+        try (UserDao dao = daoFactory.createUserDao()) {
             return dao.create(user);
         }
     }
 
     public List<User> getAllStudents() {
-        try (UserDao dao = daoFactory.createStudentDao()) {
+        try (UserDao dao = daoFactory.createUserDao()) {
             return dao.findAll();
         }
     }
