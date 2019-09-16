@@ -24,13 +24,13 @@ public class RegisterCommand implements Command {
         String surname = request.getParameter("surname");
 
         if (!correctInput(name, surname, pass, email)) {
-            return "/register.jsp";
+            return "/index.jsp";
         }
 
         UserDTO userDTO = new UserDTO(name, surname, email, pass);
         userService.save(userDTO);
         logger.info("User " + userDTO.getEmail() + " registered successfully.");
-        return "redirect:/login";
+        return "/index.jsp";
     }
 
 

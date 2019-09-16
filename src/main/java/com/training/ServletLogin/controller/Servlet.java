@@ -2,6 +2,8 @@ package com.training.ServletLogin.controller;
 
 import com.training.ServletLogin.controller.command.*;
 import com.training.ServletLogin.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -16,6 +18,8 @@ import java.util.Map;
 
 public class Servlet extends HttpServlet {
 
+    private static final Logger logger = LogManager.getLogger(Servlet.class);
+
     private UserService userService = new UserService();
     private Map<String, Command> commands = new HashMap<>();
 
@@ -29,6 +33,7 @@ public class Servlet extends HttpServlet {
         commands.put("user/page", new UserPageCommand());
         commands.put("logout", new LogoutCommand());
         commands.put("landing", new LandingCommand());
+        commands.put("pre-calculate", new PreCalculate());
     }
 
     public void doGet(HttpServletRequest request,
@@ -46,7 +51,8 @@ public class Servlet extends HttpServlet {
             throws ServletException, IOException {
         String path = request.getRequestURI();
         path = path.replaceAll(".*/api/", "");
-        System.out.println(path);
+
+        logger.info("Requested path is " + path);
         Command command = commands.getOrDefault(path,
                 (r) -> "/index.jsp");
         String page = command.execute(request);
