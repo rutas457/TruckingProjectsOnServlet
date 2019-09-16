@@ -1,6 +1,7 @@
 package com.training.ServletLogin.dao.impl;
 
 import com.training.ServletLogin.dao.DaoFactory;
+import com.training.ServletLogin.dao.OrderDao;
 import com.training.ServletLogin.dao.UserDao;
 
 import javax.sql.DataSource;
@@ -14,6 +15,11 @@ public class JDBCDaoFactory extends DaoFactory {
     @Override
     public UserDao createStudentDao() {
         return new JDBCUserDao(getConnection());
+    }
+
+    @Override
+    public OrderDao createOrderDao() {
+        return new JDBCOrderDao(getConnection());
     }
 
     private Connection getConnection() {

@@ -6,6 +6,7 @@ public abstract class DaoFactory {
     private static DaoFactory daoFactory;
 
     public abstract UserDao createStudentDao();
+    public abstract OrderDao createOrderDao();
 
     public static DaoFactory getInstance() {
         if (daoFactory == null) {
