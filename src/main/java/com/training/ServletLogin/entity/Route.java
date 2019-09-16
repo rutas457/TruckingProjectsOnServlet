@@ -69,13 +69,4 @@ public class Route {
         return Objects.hash(id, startCity, endCity, distanceInKm);
     }
 
-    @Override
-    public String toString() {
-        return "Route{" +
-                "id=" + id +
-                ", startCity='" + startCity + '\'' +
-                ", endCity='" + endCity + '\'' +
-                ", distanceInKm=" + distanceInKm +
-                '}';
-    }
 }

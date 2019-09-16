@@ -53,14 +53,10 @@ public class JDBCUserDao implements UserDao {
         return Optional.empty();
     }
 
-    @Override
-    public User findById(int id) {
-        return null;
-    }
 
     @Override
     public List<User> findAll() {
-        Map<Integer, User> users = new HashMap<>();
+        Map<Long, User> users = new HashMap<>();
 
         final String query = "" +
                 " select * from user";
