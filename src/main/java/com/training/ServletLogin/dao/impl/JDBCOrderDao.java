@@ -2,7 +2,6 @@ package com.training.ServletLogin.dao.impl;
 
 import com.training.ServletLogin.dao.OrderDao;
 import com.training.ServletLogin.dao.mapper.OrderMapper;
-import com.training.ServletLogin.dao.mapper.UserMapper;
 import com.training.ServletLogin.entity.Order;
 import com.training.ServletLogin.entity.User;
 
