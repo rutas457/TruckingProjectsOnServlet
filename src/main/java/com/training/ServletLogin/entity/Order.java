@@ -89,6 +89,11 @@ public class Order {
             return this;
         }
 
+        public Order.Builder paid(Boolean isPaid) {
+            Order.this.paid = isPaid;
+            return this;
+        }
+
         public Order.Builder user(User user) {
             Order.this.user = user;
             return this;
