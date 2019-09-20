@@ -2,7 +2,6 @@ package com.training.ServletLogin.dao.impl;
 
 import com.training.ServletLogin.dao.OrderDao;
 import com.training.ServletLogin.dao.mapper.OrderMapper;
-import com.training.ServletLogin.dao.mapper.UserMapper;
 import com.training.ServletLogin.entity.Order;
 import com.training.ServletLogin.entity.User;
 
@@ -58,7 +57,7 @@ public class JDBCOrderDao implements OrderDao {
             ResultSet rs = st.executeQuery();
 
             OrderMapper orderMapper = new OrderMapper();
-            if (rs.next()) {
+            while (rs.next()) {
                 result.add(orderMapper.extractFromResultSet(rs).orElseThrow(RuntimeException::new));
             }
             return result;
@@ -96,14 +95,18 @@ public class JDBCOrderDao implements OrderDao {
     public List<Order> findAll() {
         List<Order> result = new ArrayList<>();
         final String query = "" +
-                " select * from user_order " +
-                "NATURAL JOIN route " +
-                "NATURAL JOIN user";
+                "select * from user_order " +
+                "INNER JOIN route " +
+                "ON user_order.route_id = route.id " +
+                "INNER JOIN user " +
+                "ON user_order.user_id = user.id";
         try (PreparedStatement st = connection.prepareStatement(query)) {
             ResultSet rs = st.executeQuery();
 
             OrderMapper orderMapper = new OrderMapper();
-            if (rs.next()) {
+            int i = 0;
+            while(rs.next()) {
+                System.out.println(i++);
                 result.add(orderMapper.extractFromResultSet(rs).orElseThrow(RuntimeException::new));
             }
             return result;

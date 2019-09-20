@@ -1,6 +1,5 @@
 package com.training.ServletLogin.entity;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import com.training.ServletLogin.entity.enumerated.CargoType;
 import com.training.ServletLogin.entity.enumerated.OrderStatus;
 

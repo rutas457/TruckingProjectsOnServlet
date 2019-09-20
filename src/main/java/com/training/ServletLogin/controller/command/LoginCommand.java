@@ -23,7 +23,7 @@ public class LoginCommand implements Command {
         String email = request.getParameter("email");
         String pass = request.getParameter("pass");
         if (email == null || email.equals("") || pass == null || pass.equals("")) {
-            return "/login-ku.jsp";
+            return "/index.jsp";
         }
         Optional<User> user = userService.findByEmail(email);
         if (checkUserIsLogged(request, email)) {
@@ -34,12 +34,12 @@ public class LoginCommand implements Command {
             request.getSession(true).setAttribute("loggedUserEmail", user.get().getEmail());
             logger.info("User " + user + " logged successfully.");
             if (user.get().getRole().equals("ADMIN")) {
-                return "redirect:/admin/page";
+                return "redirect:/admin/all-orders";
             }
             return "redirect:/user/page";
         }
         logger.info("Invalid attempt of login user:'" + email + "'");
-        return "/login-ku.jsp";
+        return "/index.jsp#myModal";
     }
 
     static boolean checkUserIsLogged(HttpServletRequest request, String userName) {

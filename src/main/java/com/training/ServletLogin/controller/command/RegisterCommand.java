@@ -2,6 +2,7 @@ package com.training.ServletLogin.controller.command;
 
 import com.training.ServletLogin.dto.UserDTO;
 import com.training.ServletLogin.service.UserService;
+import com.training.ServletLogin.utils.ValidationUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,7 +24,7 @@ public class RegisterCommand implements Command {
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
 
-        if (!correctInput(name, surname, pass, email)) {
+        if (!ValidationUtils.correctInput(name, surname, pass, email)) {
             return "/index.jsp";
         }
 
@@ -34,14 +35,7 @@ public class RegisterCommand implements Command {
     }
 
 
-    private boolean correctInput(String... params) {
-        for (String param : params) {
-            if (param == null || param.equals("")) {
-                return false;
-            }
-        }
-        return true;
-    }
+
 }
 
 

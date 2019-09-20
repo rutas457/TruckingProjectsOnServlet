@@ -9,7 +9,6 @@ import com.training.ServletLogin.entity.enumerated.OrderStatus;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,7 +18,7 @@ public class OrderMapper implements ObjectMapper<Order> {
     @Override
     public Optional<Order> extractFromResultSet(ResultSet rs) throws SQLException {
         Order order = Order.builder()
-                .id(rs.getLong("id"))
+                .id(rs.getLong("user_order.id"))
                 .weight(rs.getInt("weight"))
                 .cargoName(rs.getString("cargo_name"))
                 .cargoType(CargoType.valueOf(rs.getString("cargo_type")))
