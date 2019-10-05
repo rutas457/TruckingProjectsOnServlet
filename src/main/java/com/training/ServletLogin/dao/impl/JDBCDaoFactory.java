@@ -20,6 +20,7 @@ public class JDBCDaoFactory extends DaoFactory {
 
     @Override
     public OrderDao createOrderDao() {
+        System.out.println("im here 5");
         return new JDBCOrderDao(getConnection());
     }
 
@@ -30,6 +31,7 @@ public class JDBCDaoFactory extends DaoFactory {
 
     private Connection getConnection() {
         try {
+            System.out.println("I m in get connection");
             return dataSource.getConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -1,7 +1,6 @@
 package com.training.ServletLogin.controller;
 
 import com.training.ServletLogin.controller.command.*;
-import com.training.ServletLogin.entity.Order;
 import com.training.ServletLogin.service.OrderService;
 import com.training.ServletLogin.service.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -32,12 +31,14 @@ public class Servlet extends HttpServlet {
         commands.put("error", new ErrorCommand());
         commands.put("register", new RegisterCommand(new UserService()));
         commands.put("admin/page", new AdminPageCommand());
-        commands.put("user/page", new UserPageCommand());
+        commands.put("user/page", new UserPageCommand(new OrderService()));
         commands.put("logout", new LogoutCommand());
         commands.put("landing", new LandingCommand());
         commands.put("pre-calculate", new PreCalculate());
         commands.put("admin/all-orders", new AdminOrdersListCommand(new OrderService()));
         commands.put("user/order", new OrderCommand(new OrderService()));
+        commands.put("admin/change-state", new ChangeOrderStateCommand(new OrderService()));
+        commands.put("user/order/set-paid", new SetOrderPaidCommand(new OrderService()));
     }
 
     public void doGet(HttpServletRequest request,

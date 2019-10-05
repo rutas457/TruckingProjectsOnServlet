@@ -17,7 +17,7 @@ public class UserService {
         }
     }
 
-    public boolean save(UserDTO userDTO) {
+    public void save(UserDTO userDTO) {
         User user = User.builder()
                 .email(userDTO.getEmail())
                 .name(userDTO.getName())
@@ -26,7 +26,7 @@ public class UserService {
                 .roles("USER")
                 .build();
         try (UserDao dao = daoFactory.createUserDao()) {
-            return dao.create(user);
+            dao.create(user);
         }
     }
 

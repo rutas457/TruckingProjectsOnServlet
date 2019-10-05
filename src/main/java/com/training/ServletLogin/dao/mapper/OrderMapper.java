@@ -17,6 +17,7 @@ public class OrderMapper implements ObjectMapper<Order> {
 
     @Override
     public Optional<Order> extractFromResultSet(ResultSet rs) throws SQLException {
+        System.out.println("In mapper");
         Order order = Order.builder()
                 .id(rs.getLong("user_order.id"))
                 .weight(rs.getInt("weight"))
@@ -41,6 +42,7 @@ public class OrderMapper implements ObjectMapper<Order> {
                         .build())
                 .state(OrderStatus.valueOf(rs.getString("state")))
                 .build();
+        System.out.println("mapper ended");
         return Optional.of(order);
     }
 

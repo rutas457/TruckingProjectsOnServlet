@@ -1,9 +1,7 @@
 package com.training.ServletLogin.service;
 
-import com.training.ServletLogin.controller.command.LoginCommand;
 import com.training.ServletLogin.dao.DaoFactory;
 import com.training.ServletLogin.dao.OrderDao;
-import com.training.ServletLogin.dao.RouteDao;
 import com.training.ServletLogin.dto.OrderDTO;
 import com.training.ServletLogin.dto.OrdersDTO;
 import com.training.ServletLogin.entity.Order;
@@ -23,8 +21,8 @@ public class OrderService {
 
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public boolean save(OrderDTO orderDTO, String currentUser) {
-
+    public void save(OrderDTO orderDTO, User currentUser) {
+        logger.info("In save method");
         Order order = Order.builder()
                 .cargoType(orderDTO.getCargoType())
                 .cargoName(orderDTO.getCargoName())
@@ -33,31 +31,32 @@ public class OrderService {
                 .shippingStart(LocalDate.parse(orderDTO.getShippingStart()).plusDays(1))
                 .shippingEnd(LocalDate.parse(orderDTO.getShippingEnd()).plusDays(1))
                 .paid(false)
+                .user(currentUser)
                 .build();
 
-        logger.info(order.toString());
-        order.setUser(new UserService().findByEmail(currentUser).orElseThrow(RuntimeException::new));
-
-        try (RouteDao dao = daoFactory.createRouteDao()) {
-            order.setRoute(dao.findByStartCityAndEndCity(orderDTO.getToCity(), orderDTO.getFromCity())
-                    .orElse(dao.findByStartCityAndEndCity(orderDTO.getFromCity(), orderDTO.getToCity())
-                            .orElseThrow(RuntimeException::new)));
-        }
+        Route route = new Route(1L, "Kharkiv", "Kyiv", 500);
+        order.setRoute(route);
         order.setPrice(order.calculateOrderPrice());
-
+        logger.info(order.toString());
         try (OrderDao dao = daoFactory.createOrderDao()) {
-            return dao.create(order);
+            logger.info("Dao created");
+            dao.create(order);
         }
     }
+
+    public void save(Order order) {
+        try (OrderDao dao = daoFactory.createOrderDao()) {
+            dao.create(order);
+        }
+    }
+
 
     public long getPrice(String from, String to, int weight, CargoType cargoType) {
         logger.info(from + " " + to);
         Route route;
-        try(RouteDao dao = daoFactory.createRouteDao()) {
-           route = dao.findByStartCityAndEndCity(to, from)
-                    .orElse(dao.findByStartCityAndEndCity(from, to)
-                            .orElseThrow(RuntimeException::new));
-        }
+
+        route = new Route(1L, "Kharkiv", "Kyiv", 500);
+
 
         Order order = Order.builder()
                 .route(route)
@@ -69,6 +68,7 @@ public class OrderService {
 
     public OrdersDTO getAllOrdersOfUser(User user) {
         try (OrderDao dao = daoFactory.createOrderDao()) {
+            logger.info("All orders Dao Created");
             return new OrdersDTO(dao.findAllByUser(user));
         }
     }
@@ -80,8 +80,27 @@ public class OrderService {
     }
 
     public Optional<Order> findOrderById(long id) {
+        System.out.println("In find order");
         try (OrderDao dao = daoFactory.createOrderDao()) {
+            logger.info("Find order dao created");
             return dao.findById(id);
         }
     }
+
+    public void updateState(Order order) {
+        logger.info("In update");
+        try (OrderDao dao = daoFactory.createOrderDao()) {
+            logger.info("Update dao created");
+            dao.updateStateById(order);
+        }
+    }
+
+    public void setOrderPaid(Order order) {
+        logger.info("In pay method");
+        try (OrderDao dao = daoFactory.createOrderDao()) {
+            logger.info("Updating order paid state id=" + order.getId());
+            dao.setPaidById(order);
+        }
+    }
+
 }

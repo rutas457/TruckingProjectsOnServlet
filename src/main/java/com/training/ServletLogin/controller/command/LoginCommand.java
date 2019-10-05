@@ -36,10 +36,10 @@ public class LoginCommand implements Command {
             if (user.get().getRole().equals("ADMIN")) {
                 return "redirect:/admin/all-orders";
             }
-            return "redirect:/user/page";
+            return "redirect:/user/order";
         }
         logger.info("Invalid attempt of login user:'" + email + "'");
-        return "/index.jsp#myModal";
+        return "redirect:/";
     }
 
     static boolean checkUserIsLogged(HttpServletRequest request, String userName) {

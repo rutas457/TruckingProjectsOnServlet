@@ -16,7 +16,7 @@ public class JDBCUserDao implements UserDao {
     }
 
     @Override
-    public boolean create(User entity) {
+    public void create(User entity) {
         final String query = "" +
                 "INSERT INTO user(email,name,password,surname,role) "
                 + "VALUES(?,?,?,?,?)";
@@ -26,11 +26,10 @@ public class JDBCUserDao implements UserDao {
             st.setString(3, entity.getPassword());
             st.setString(4, entity.getSurname());
             st.setString(5, entity.getRole());
-            return st.execute();
+            st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     @Override

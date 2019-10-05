@@ -1,12 +1,9 @@
 package com.training.ServletLogin.dao.impl;
 
-import com.training.ServletLogin.dao.OrderDao;
 import com.training.ServletLogin.dao.RouteDao;
 import com.training.ServletLogin.dao.mapper.RouteMapper;
-import com.training.ServletLogin.dao.mapper.UserMapper;
 import com.training.ServletLogin.entity.Order;
 import com.training.ServletLogin.entity.Route;
-import com.training.ServletLogin.entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,27 +23,26 @@ public class JDBCRouteDao implements RouteDao {
     @Override
     public Optional<Route> findByStartCityAndEndCity(String startCity, String endCity) {
         final String query = "" +
-            " select * from route where start_city=? and end_city=?";
+                " select * from route where start_city=? and end_city=?";
         try (PreparedStatement st = connection.prepareStatement(query)) {
-        st.setString(1, startCity);
-        st.setString(2, endCity);
-        ResultSet rs = st.executeQuery();
+            st.setString(1, startCity);
+            st.setString(2, endCity);
+            ResultSet rs = st.executeQuery();
 
             RouteMapper routeMapper = new RouteMapper();
-        if (rs.next()) {
-            Optional<Route> route = routeMapper.extractFromResultSet(rs);
-            return route;
+            if (rs.next()) {
+                Optional<Route> route = routeMapper.extractFromResultSet(rs);
+                return route;
+            }
+            return Optional.empty();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return Optional.empty();
-    } catch (SQLException e) {
-        e.printStackTrace();
     }
-        return Optional.empty();
-}
 
     @Override
-    public boolean create(Order entity) {
-        return false;
+    public void create(Order entity) {
     }
 
     @Override

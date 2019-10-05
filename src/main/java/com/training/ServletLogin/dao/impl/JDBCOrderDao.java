@@ -4,6 +4,8 @@ import com.training.ServletLogin.dao.OrderDao;
 import com.training.ServletLogin.dao.mapper.OrderMapper;
 import com.training.ServletLogin.entity.Order;
 import com.training.ServletLogin.entity.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,36 +14,41 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class JDBCOrderDao implements OrderDao {
+    private static final Logger logger = LogManager.getLogger(JDBCOrderDao.class);
     private Connection connection;
+    private final ResourceBundle bundle = ResourceBundle.getBundle("queries");
 
 
     public JDBCOrderDao(Connection connection) {
         this.connection = connection;
     }
 
+    //TODO DB properties all queries
     @Override
     public Optional<Order> findById(Long id) {
-        final String query = "" +
-                " select * from user_order " +
-                "NATURAL JOIN route " +
-                "NATURAL JOIN user"
-                + " where user_order.id=?";
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        final String query = " select * from user_order " +
+                "INNER JOIN route " +
+                "ON user_order.route_id = route.id " +
+                "INNER JOIN user " +
+                "ON user_order.user_id = user.id " +
+                "where user_order.id = ?";
+        try (PreparedStatement st = connection.prepareCall(query)) {
+            logger.info("Select statement prepared");
             st.setLong(1, id);
             ResultSet rs = st.executeQuery();
-
+            logger.info("Query executed");
             OrderMapper orderMapper = new OrderMapper();
             if (rs.next()) {
-                Optional<Order> order = orderMapper.extractFromResultSet(rs);
-                return order;
+                logger.info("Select ended");
+                return orderMapper.extractFromResultSet(rs);
             }
             return Optional.empty();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return Optional.empty();
     }
 
     @Override
@@ -49,10 +56,12 @@ public class JDBCOrderDao implements OrderDao {
         List<Order> result = new ArrayList<>();
         final String query = "" +
                 " select * from user_order " +
-                "NATURAL JOIN route " +
-                "NATURAL JOIN user " +
-                "where user_id=?";
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+                "INNER JOIN route " +
+                "ON user_order.route_id = route.id " +
+                "INNER JOIN user " +
+                "ON user_order.user_id = user.id " +
+                "where user_order.user_id = ?";
+        try (PreparedStatement st = connection.prepareCall(query)) {
             st.setLong(1, user.getId());
             ResultSet rs = st.executeQuery();
 
@@ -62,18 +71,18 @@ public class JDBCOrderDao implements OrderDao {
             }
             return result;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return result;
     }
 
     @Override
-    public boolean create(Order entity) {
+    public void create(Order entity) {
         final String query = "" +
                 "INSERT INTO user_order(cargo_name, cargo_type, paid, price, shipping_end, " +
                 "shipping_start, state, weight, route_id, user_id) "
                 + "VALUES(?,?,?,?,?,?,?,?,?,?)";
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (PreparedStatement st = connection.prepareCall(query)) {
+            System.out.println("Statement created!");
             st.setString(1, entity.getCargoName());
             st.setString(2, entity.getCargoType().name());
             st.setBoolean(3, entity.getPaid());
@@ -84,37 +93,56 @@ public class JDBCOrderDao implements OrderDao {
             st.setInt(8, entity.getWeight());
             st.setLong(9, entity.getRoute().getId());
             st.setInt(10, entity.getUser().getId());
-            return st.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            st.executeUpdate();
+            System.out.println("Statement executed!");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return false;
     }
 
     @Override
     public List<Order> findAll() {
         List<Order> result = new ArrayList<>();
-        final String query = "" +
-                "select * from user_order " +
-                "INNER JOIN route " +
-                "ON user_order.route_id = route.id " +
-                "INNER JOIN user " +
-                "ON user_order.user_id = user.id";
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        final String query = bundle.getString("select.one.to.many.order.user");
+        try (PreparedStatement st = connection.prepareCall(query)) {
             ResultSet rs = st.executeQuery();
 
             OrderMapper orderMapper = new OrderMapper();
-            int i = 0;
-            while(rs.next()) {
-                System.out.println(i++);
+            while (rs.next()) {
                 result.add(orderMapper.extractFromResultSet(rs).orElseThrow(RuntimeException::new));
             }
             return result;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return result;
     }
+
+    @Override
+    public void updateStateById(Order order) {
+        final String query = "UPDATE" +
+                " user_order SET state =? where id=?";
+        try (PreparedStatement st = connection.prepareCall(query)) {
+            st.setString(1, order.getState().name());
+            st.setLong(2, order.getId());
+            st.executeUpdate();
+            connection.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void setPaidById(Order order) {
+        final String query = "UPDATE" +
+                " user_order SET paid = true where id=?";
+        try (PreparedStatement st = connection.prepareCall(query)) {
+            st.setLong(1, order.getId());
+            st.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Override
     public void update(Order entity) {
@@ -128,6 +156,10 @@ public class JDBCOrderDao implements OrderDao {
 
     @Override
     public void close() {
-
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

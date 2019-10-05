@@ -33,7 +33,7 @@ public class OrderCommand implements Command {
         }
         Integer weight = Integer.valueOf(request.getParameter("weight"));
 
-        try{
+        try {
             OrderDTO orderDTO = OrderDTO.builder()
                     .to(toCity)
                     .cargoName(cargoName)
@@ -45,10 +45,10 @@ public class OrderCommand implements Command {
                     .build();
 
             logger.info(orderDTO.toString());
-            orderService.save(orderDTO, ((User)request.getSession(true).getAttribute("loggedUser")).getEmail());
+            orderService.save(orderDTO, ((User) request.getSession(true).getAttribute("loggedUser")));
 
             logger.info("Order was successfully committed");
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "redirect:/user/page";
