@@ -3,7 +3,7 @@ package com.training.ServletLogin.dao;
 import java.util.List;
 
 public interface GenericDao<T> extends AutoCloseable {
-    boolean create(T entity);
+    void create(T entity);
 
     List<T> findAll();
 

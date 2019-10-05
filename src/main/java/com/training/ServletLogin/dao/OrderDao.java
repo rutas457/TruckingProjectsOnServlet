@@ -10,4 +10,8 @@ public interface OrderDao extends GenericDao<Order> {
     Optional<Order> findById(Long id);
 
     List<Order> findAllByUser(User user);
+
+    void updateStateById(Order order);
+
+    void setPaidById(Order order);
 }

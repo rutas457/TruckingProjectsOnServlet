@@ -64,7 +64,7 @@
             </div>
             <div class="form-row">
                 <div class="col">
-                    <h2>Price: <span></span></h2>
+                    <h2>Price: <span>${sessionScope.price}</span></h2>
                 </div>
             </div>
             <a

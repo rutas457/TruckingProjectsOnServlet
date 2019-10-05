@@ -97,7 +97,7 @@
                 <form class="text-center" style="margin: 70px;padding: 7px;" action="/api/pre-calculate" method="post">
                     <div class="form-group"><select name="from" class="form-control" id="box_g1">
                         <optgroup label="Departure city">
-                            <option selected="selected" value="Kyiv">Kyiv</option>
+                            <option selected="selected" value="Kharkiv">Kharkiv</option>
                             <option value="Lviv">Lviv</option>
                             <option value="Odesa">Odesa</option>
                             <option value="Kharkiv">Kharkiv</option>
@@ -105,7 +105,7 @@
                     </select></div>
                     <div class="form-group"><select name="to" class="form-control">
                         <optgroup label="Arrival city">
-                            <option selected="selected" value="Lviv">Lviv</option>
+                            <option selected="selected" value="Kyiv">Kyiv</option>
                             <option value="Kyiv">Kyiv</option>
                             <option value="Odesa">Odesa</option>
                             <option value="Kharkiv">Kharkiv</option>
@@ -113,7 +113,10 @@
                     </select></div>
                     <div class="form-group"><input name="weight" class="form-control" type="number" min="1"
                                                    max="40"
-                                                   style="width: 250px;"></div>
+                                                   placeholder=
+                                                   <fmt:message key="weight"/>
+                                                           style="width: 250px;">
+                    </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit" style="background-color: #5bbf21;"
                         >Calculate
@@ -151,9 +154,6 @@
 </div>
 <div class="footer-basic">
     <footer>
-        <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i
-                class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a
-                href="#"><i class="icon ion-social-facebook"></i></a></div>
         <ul class="list-inline">
             <li class="list-inline-item"><a href="#">Home</a></li>
             <li class="list-inline-item"><a href="#">Services</a></li>
