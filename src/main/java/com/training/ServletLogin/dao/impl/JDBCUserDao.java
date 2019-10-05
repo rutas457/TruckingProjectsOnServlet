@@ -9,7 +9,7 @@ import java.util.*;
 
 public class JDBCUserDao implements UserDao {
     private Connection connection;
-
+    private final ResourceBundle bundle = ResourceBundle.getBundle("queries");
 
     public JDBCUserDao(Connection connection) {
         this.connection = connection;
@@ -17,10 +17,7 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public void create(User entity) {
-        final String query = "" +
-                "INSERT INTO user(email,name,password,surname,role) "
-                + "VALUES(?,?,?,?,?)";
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (PreparedStatement st = connection.prepareStatement(bundle.getString("insert.user"))) {
             st.setString(1, entity.getEmail());
             st.setString(2, entity.getName());
             st.setString(3, entity.getPassword());
@@ -34,16 +31,14 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public Optional<User> findByEmail(String email) {
-        final String query = "" +
-                " select * from user where user.email=?";
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+
+        try (PreparedStatement st = connection.prepareStatement(bundle.getString("select.user.by.email"))) {
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
 
             UserMapper userMapper = new UserMapper();
             if (rs.next()) {
-                Optional<User> user = userMapper.extractFromResultSet(rs);
-                return user;
+                return userMapper.extractFromResultSet(rs);
             }
             return Optional.empty();
         } catch (SQLException e) {
@@ -56,11 +51,8 @@ public class JDBCUserDao implements UserDao {
     @Override
     public List<User> findAll() {
         Map<Long, User> users = new HashMap<>();
-
-        final String query = "" +
-                " select * from user";
         try (Statement st = connection.createStatement()) {
-            ResultSet rs = st.executeQuery(query);
+            ResultSet rs = st.executeQuery(bundle.getString("select.all.from.user"));
             UserMapper userMapper = new UserMapper();
 
             while (rs.next()) {
