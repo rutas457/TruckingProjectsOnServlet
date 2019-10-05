@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${param.lang}"/>
+<fmt:setLocale value="${cookie['lang'].value}"/>
 <fmt:setBundle basename="messages"/>
 
-<html lang="${param.lang}">
+<html lang="${cookie['lang'].value}">
 
 <head>
     <meta charset="utf-8">
@@ -230,7 +230,7 @@
         $("#locales").click(function () {
             var selectedOption = $('#locales').val();
             if (selectedOption != '') {
-                window.location.replace('?lang=' + selectedOption);
+                window.location.replace('?cookieLocale=' + selectedOption);
             }
         });
     });
@@ -240,7 +240,7 @@
         $("#locales2").click(function () {
             var selectedOption = $('#locales2').val();
             if (selectedOption != '') {
-                window.location.replace('?lang=' + selectedOption);
+                window.location.replace('?cookieLocale=' + selectedOption);
             }
         });
     });
