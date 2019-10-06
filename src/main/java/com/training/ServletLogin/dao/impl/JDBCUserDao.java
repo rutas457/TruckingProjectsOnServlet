@@ -11,7 +11,7 @@ public class JDBCUserDao implements UserDao {
     private Connection connection;
     private final ResourceBundle bundle = ResourceBundle.getBundle("queries");
 
-    public JDBCUserDao(Connection connection) {
+    JDBCUserDao(Connection connection) {
         this.connection = connection;
     }
 

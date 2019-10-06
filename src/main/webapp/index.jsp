@@ -25,7 +25,8 @@
             <div class="collapse navbar-collapse"
                  id="navcol-1">
                 <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="#calculate"></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#calculate"><fmt:message
+                            key="calculate.freight"/></a></li>
                 </ul>
                 <span class="navbar-text actions"> <a href="#myModal" data-toggle="modal" class="login"><fmt:message
                         key="login"/></a><a
@@ -49,37 +50,37 @@
 <div class="features-clean" style="height: 562px;">
     <div class="container">
         <div class="intro">
-            <h2 class="text-center"></h2>
-            <p class="text-center"></p>
+            <h2 class="text-center"><fmt:message key="features"/></h2>
+            <p class="text-center"><fmt:message key="features.description"/></p>
         </div>
         <div class="row features" style="height: 337px;">
             <div class="col-sm-6 col-lg-4 item"><i class="fa fa-map-marker icon"></i>
-                <h3 class="name"></h3>
+                <h3 class="name"><fmt:message key="features.everywhere"/></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
             </div>
             <div class="col-sm-6 col-lg-4 item"><i class="fa fa-clock-o icon"></i>
-                <h3 class="name"></h3>
+                <h3 class="name"><fmt:message key="features.always.available"/></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
             </div>
             <div class="col-sm-6 col-lg-4 item"><i class="fa fa-list-alt icon"></i>
-                <h3 class="name"></h3>
+                <h3 class="name"><fmt:message key="features.customizable"/></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
             </div>
             <div class="col-sm-6 col-lg-4 item"><i class="fa fa-leaf icon"></i>
-                <h3 class="name"></h3>
+                <h3 class="name"><fmt:message key="features.tracking"/></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
             </div>
             <div class="col-sm-6 col-lg-4 item"><i class="fa fa-plane icon"></i>
-                <h3 class="name"></h3>
+                <h3 class="name"><fmt:message key="features.fast"/></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
             </div>
             <div class="col-sm-6 col-lg-4 item"><i class="fa fa-phone icon"></i>
-                <h3 class="name"></h3>
+                <h3 class="name"><fmt:message key="features.reliable"/></h3>
                 <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent
                     aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
             </div>
@@ -113,6 +114,7 @@
                     </select></div>
                     <div class="form-group"><input name="weight" class="form-control" type="number" min="1"
                                                    max="40"
+                                                   required
                                                    placeholder=
                                                    <fmt:message key="weight"/>
                                                            style="width: 250px;">
@@ -174,10 +176,11 @@
             <div class="modal-body">
                 <div>
                     <ul class="nav nav-tabs">
-                        <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-1">Sign in</a>
+                        <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-1"><fmt:message
+                                key="login"/></a>
                         </li>
-                        <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-2">Sign
-                            up</a></li>
+                        <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab"
+                                                href="#tab-2"><fmt:message key="register"/></a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane" role="tabpanel" id="tab-1">
@@ -185,12 +188,14 @@
                             <form method="post" action="/api/login">
                                 <div class="form-group"><i class="fa fa-lock d-lg-flex justify-content-lg-center"
                                                            style="font-size: 32px;"></i></div>
-                                <div class="form-group"><input class="form-control" type="email" name="email"
-                                                               placeholder="Email"></div>
-                                <div class="form-group"><input class="form-control" type="password" name="pass"
-                                                               placeholder="Password"></div>
+                                <div class="form-group"><input class="form-control" type="email" name="email" required
+                                                               placeholder=
+                                                               <fmt:message key="email"/>/></div>
+                                <div class="form-group"><input class="form-control" type="password" name="pass" required
+                                                               placeholder=<fmt:message key="password"/>></div>
                                 <div class="form-group">
-                                    <button class="btn btn-primary d-lg-flex ml-auto" type="submit">Submit</button>
+                                    <button class="btn btn-primary d-lg-flex ml-auto" type="submit"><fmt:message
+                                            key="submit"/></button>
                                 </div>
                             </form>
                         </div>
@@ -199,17 +204,18 @@
                             <form method="post" action="/api/register">
                                 <div class="form-group"><i class="fa fa-key d-lg-flex justify-content-lg-center"
                                                            style="font-size: 32px;"></i></div>
-                                <div class="form-group"><input class="form-control" type="text" name="name"
-                                                               placeholder="Name"></div>
-                                <div class="form-group"><input class="form-control" type="text" name="surname"
-                                                               placeholder="Surname"></div>
-                                <div class="form-group"><input class="form-control" type="email" name="email"
-                                                               placeholder="Email"></div>
+                                <div class="form-group"><input class="form-control" type="text" name="name" required
+                                                               placeholder=<fmt:message key="name"/>></div>
+                                <div class="form-group"><input class="form-control" type="text" name="surname" required
+                                                               placeholder=<fmt:message key="surname"/>></div>
+                                <div class="form-group"><input class="form-control" type="email" name="email" required
+                                                               placeholder=<fmt:message key="email"/>></div>
                                 <div class="form-group"><input class="form-control" type="password" name="password"
-                                                               placeholder="Password"></div>
+                                                               required
+                                                               placeholder=<fmt:message key="password"/>></div>
                                 <div class="form-group ml-auto">
                                     <button class="btn btn-primary d-lg-flex ml-auto justify-content-lg-end"
-                                            type="submit">Submit
+                                            type="submit"><fmt:message key="submit"/>
                                     </button>
                                 </div>
                             </form>

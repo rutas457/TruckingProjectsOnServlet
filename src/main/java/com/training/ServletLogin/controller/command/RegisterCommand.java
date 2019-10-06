@@ -24,7 +24,7 @@ public class RegisterCommand implements Command {
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
 
-        if (!ValidationUtils.correctInput(name, surname, pass, email)) {
+        if (ValidationUtils.correctInput(name, surname, pass, email)) {
             return "/index.jsp";
         }
 

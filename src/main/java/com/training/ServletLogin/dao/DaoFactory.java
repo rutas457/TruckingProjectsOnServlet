@@ -12,15 +12,10 @@ public abstract class DaoFactory {
     public abstract RouteDao createRouteDao();
 
     public static DaoFactory getInstance() {
-        System.out.println("I`m here");
         if (daoFactory == null) {
-            System.out.println("Im here 2");
             synchronized (DaoFactory.class) {
-                System.out.println("Im here 3");
                 if (daoFactory == null) {
-                    System.out.println("Im here 4");
-                    DaoFactory temp = new JDBCDaoFactory();
-                    daoFactory = temp;
+                    daoFactory = new JDBCDaoFactory();
                 }
             }
         }
