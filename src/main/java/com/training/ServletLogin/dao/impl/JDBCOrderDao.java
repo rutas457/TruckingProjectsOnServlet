@@ -4,15 +4,13 @@ import com.training.ServletLogin.dao.OrderDao;
 import com.training.ServletLogin.dao.mapper.OrderMapper;
 import com.training.ServletLogin.entity.Order;
 import com.training.ServletLogin.entity.User;
+import com.training.ServletLogin.utils.Pagination;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class JDBCOrderDao implements OrderDao {
     private Connection connection;
@@ -100,7 +98,6 @@ public class JDBCOrderDao implements OrderDao {
             st.setString(1, order.getState().name());
             st.setLong(2, order.getId());
             st.executeUpdate();
-            connection.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -116,6 +113,45 @@ public class JDBCOrderDao implements OrderDao {
         }
     }
 
+    @Override
+    public Pagination<Order> findAllByUserPaginated(User user, int page) {
+        List<Order> ordersList = new LinkedList<>();
+        int numberOfRows = getNumberOfRecordsByUserId(user.getId());
+        try (PreparedStatement st = connection.prepareCall(bundle.getString("select.orders.paginated"))) {
+            st.setLong(1, user.getId());
+            if (page > 1 && (numberOfRows / Pagination.LIMIT) >= page) {
+                st.setInt(2, Pagination.LIMIT);
+                st.setInt(3, Pagination.LIMIT * (page - 1));
+            } else {
+                st.setInt(2, Pagination.LIMIT);
+                st.setInt(3, Pagination.OFFSET);
+            }
+
+            ResultSet rs = st.executeQuery();
+            OrderMapper orderMapper = new OrderMapper();
+            while (rs.next()) {
+                ordersList.add(orderMapper.extractFromResultSet(rs).orElseThrow(RuntimeException::new));
+            }
+            return new Pagination<Order>(numberOfRows, ordersList);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @Override
+    public int getNumberOfRecordsByUserId(Integer id) {
+        try (PreparedStatement st = connection.prepareCall(bundle.getString("select.number.of.rows"))) {
+            st.setLong(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("COUNT(*)");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
 
     @Override
     public void update(Order entity) {

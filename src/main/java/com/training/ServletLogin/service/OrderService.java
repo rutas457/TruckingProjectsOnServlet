@@ -130,7 +130,6 @@ public class OrderService {
      * @param order to pay
      */
     public void setOrderPaid(Order order) {
-        logger.info("In pay method");
         try (OrderDao dao = daoFactory.createOrderDao()) {
             logger.info("Updating order paid state id=" + order.getId());
             dao.setPaidById(order);
