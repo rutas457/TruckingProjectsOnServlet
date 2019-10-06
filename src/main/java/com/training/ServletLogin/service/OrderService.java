@@ -15,12 +15,22 @@ import org.apache.logging.log4j.Logger;
 import java.time.LocalDate;
 import java.util.Optional;
 
+
+/**
+ * The {@code OrderService } class contains business logic of the orders processing
+ */
 public class OrderService {
 
     private static final Logger logger = LogManager.getLogger(OrderService.class);
 
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
+    /**
+     * Saves order of a current user into database
+     *
+     * @param orderDTO    order made by user
+     * @param currentUser user from session attribute
+     */
     public void save(OrderDTO orderDTO, User currentUser) {
         logger.info("In save method");
         Order order = Order.builder()
@@ -44,13 +54,27 @@ public class OrderService {
         }
     }
 
-    public void save(Order order) {
+    /**
+     * Updates the order entity in the database
+     *
+     * @param order order to update
+     */
+    public void update(Order order) {
         try (OrderDao dao = daoFactory.createOrderDao()) {
             dao.create(order);
         }
     }
 
 
+    /**
+     * Calculates the price of the order depending on the input params
+     *
+     * @param from      city of departure
+     * @param to        city of arrival
+     * @param weight    weight of the cargo
+     * @param cargoType type of the cargo
+     * @return cargo price
+     */
     public long getPrice(String from, String to, int weight, CargoType cargoType) {
         logger.info(from + " " + to);
         Route route;
@@ -66,6 +90,10 @@ public class OrderService {
         return order.calculateOrderPrice();
     }
 
+    /**
+     * @param user current user
+     * @return all orders of user
+     */
     public OrdersDTO getAllOrdersOfUser(User user) {
         try (OrderDao dao = daoFactory.createOrderDao()) {
             logger.info("All orders Dao Created");
