@@ -2,7 +2,6 @@ package com.training.ServletLogin.service;
 
 import com.training.ServletLogin.dao.DaoFactory;
 import com.training.ServletLogin.dao.OrderDao;
-import com.training.ServletLogin.dto.OrdersDTO;
 import com.training.ServletLogin.entity.Order;
 import com.training.ServletLogin.entity.User;
 import com.training.ServletLogin.utils.Pagination;
@@ -14,7 +13,7 @@ public class PaginationService {
 
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public Pagination<Order> getOrdersPage(User user, int page){
+    public Pagination<Order> getOrdersPage(User user, int page) {
         try (OrderDao dao = daoFactory.createOrderDao()) {
             return dao.findAllByUserPaginated(user, page);
         }

@@ -28,7 +28,7 @@ public class OrderCommand implements Command {
         String shippingEnd = request.getParameter("shippingEnd");
         String cargoType = request.getParameter("cargoType");
 
-        if (!ValidationUtils.correctInput(cargoName, cargoType, fromCity, toCity, shippingEnd, shippingStart)) {
+        if (ValidationUtils.correctInput(cargoName, cargoType, fromCity, toCity, shippingEnd, shippingStart)) {
             return "/WEB-INF/user-order.jsp";
         }
         Integer weight = Integer.valueOf(request.getParameter("weight"));

@@ -7,14 +7,14 @@ import java.util.Objects;
 
 public class Pagination<T> implements Serializable {
     public static final int LIMIT = 7;
-    public static final int OFFSET= 0;
+    public static final int OFFSET = 0;
     private int numberOfPages;
     private List<T> list;
 
 
     public Pagination(int numberOfRecords, List<T> list) {
         this.list = list;
-        this.numberOfPages = numberOfRecords/LIMIT;
+        this.numberOfPages = numberOfRecords / LIMIT;
     }
 
 

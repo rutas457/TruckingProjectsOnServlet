@@ -15,7 +15,7 @@ import java.util.Optional;
 public class JDBCRouteDao implements RouteDao {
     private Connection connection;
 
-    public JDBCRouteDao(Connection connection) {
+    JDBCRouteDao(Connection connection) {
         this.connection = connection;
     }
 
@@ -31,8 +31,7 @@ public class JDBCRouteDao implements RouteDao {
 
             RouteMapper routeMapper = new RouteMapper();
             if (rs.next()) {
-                Optional<Route> route = routeMapper.extractFromResultSet(rs);
-                return route;
+                return routeMapper.extractFromResultSet(rs);
             }
             return Optional.empty();
         } catch (SQLException e) {

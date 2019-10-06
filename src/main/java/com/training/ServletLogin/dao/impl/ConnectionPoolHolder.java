@@ -4,10 +4,10 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
 
-public class ConnectionPoolHolder {
+class ConnectionPoolHolder {
     private static volatile DataSource dataSource;
 
-    public static DataSource getDataSource() {
+    static DataSource getDataSource() {
         if (dataSource == null) {
             synchronized (ConnectionPoolHolder.class) {
                 if (dataSource == null) {
