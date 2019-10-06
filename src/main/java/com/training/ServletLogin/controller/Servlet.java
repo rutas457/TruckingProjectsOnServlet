@@ -2,6 +2,7 @@ package com.training.ServletLogin.controller;
 
 import com.training.ServletLogin.controller.command.*;
 import com.training.ServletLogin.service.OrderService;
+import com.training.ServletLogin.service.PaginationService;
 import com.training.ServletLogin.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +32,7 @@ public class Servlet extends HttpServlet {
         commands.put("error", new ErrorCommand());
         commands.put("register", new RegisterCommand(new UserService()));
         commands.put("admin/page", new AdminPageCommand());
-        commands.put("user/page", new UserPageCommand(new OrderService()));
+        commands.put("user/page", new UserPageCommand(new PaginationService()));
         commands.put("logout", new LogoutCommand());
         commands.put("landing", new LandingCommand());
         commands.put("pre-calculate", new PreCalculate());

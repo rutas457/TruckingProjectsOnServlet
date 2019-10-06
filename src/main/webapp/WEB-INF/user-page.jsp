@@ -80,6 +80,27 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col">
+        <nav>
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link"
+                                         aria-label="Previous"><span
+                        aria-hidden="true"><</span></a></li>
+                <c:forEach var="pageNumber" items="${pages}">
+                    <a>
+                        <li class="page-item"><a class="page-link" href="/api/user/page?page=${pageNumber}"
+                        >${pageNumber}</a></li>
+                    </a>
+                </c:forEach>
+                <li class="page-item"><a class="page-link"
+
+                                         aria-label="Next"><span aria-hidden="true">></span></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
 <script src="/user-assets/js/jquery.min.js"></script>
 <script src="/user-assets/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
