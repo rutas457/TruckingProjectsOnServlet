@@ -96,7 +96,6 @@ public class OrderService {
      */
     public OrdersDTO getAllOrdersOfUser(User user) {
         try (OrderDao dao = daoFactory.createOrderDao()) {
-            logger.info("All orders Dao Created");
             return new OrdersDTO(dao.findAllByUser(user));
         }
     }
@@ -108,21 +107,28 @@ public class OrderService {
     }
 
     public Optional<Order> findOrderById(long id) {
-        System.out.println("In find order");
         try (OrderDao dao = daoFactory.createOrderDao()) {
-            logger.info("Find order dao created");
             return dao.findById(id);
         }
     }
 
+
+    /**
+     * Updates the state of the order
+     *
+     * @param order chosen order from list
+     */
     public void updateState(Order order) {
-        logger.info("In update");
         try (OrderDao dao = daoFactory.createOrderDao()) {
-            logger.info("Update dao created");
             dao.updateStateById(order);
         }
     }
 
+    /**
+     * Sets order paid state in the database
+     *
+     * @param order to pay
+     */
     public void setOrderPaid(Order order) {
         logger.info("In pay method");
         try (OrderDao dao = daoFactory.createOrderDao()) {
