@@ -2,6 +2,7 @@ package com.training.ServletLogin.service;
 
 import com.training.ServletLogin.dao.DaoFactory;
 import com.training.ServletLogin.dao.OrderDao;
+import com.training.ServletLogin.dao.RouteDao;
 import com.training.ServletLogin.dto.OrderDTO;
 import com.training.ServletLogin.dto.OrdersDTO;
 import com.training.ServletLogin.entity.Order;
@@ -44,12 +45,17 @@ public class OrderService {
                 .user(currentUser)
                 .build();
 
-        Route route = new Route(1L, "Kharkiv", "Kyiv", 500);
+        logger.info(orderDTO.getFromCity() + " " + orderDTO.getToCity());
+        Route route = getRoute(orderDTO.getFromCity(), orderDTO.getToCity())
+                .orElse(getRoute(orderDTO.getToCity(), orderDTO.getFromCity())
+                        .orElseThrow(RuntimeException::new));
+
+
+
         order.setRoute(route);
         order.setPrice(order.calculateOrderPrice());
         logger.info(order.toString());
         try (OrderDao dao = daoFactory.createOrderDao()) {
-            logger.info("Dao created");
             dao.create(order);
         }
     }
@@ -76,12 +82,10 @@ public class OrderService {
      * @return cargo price
      */
     public long getPrice(String from, String to, int weight, CargoType cargoType) {
-        logger.info(from + " " + to);
-        Route route;
 
-        route = new Route(1L, "Kharkiv", "Kyiv", 500);
-
-
+        Route route = getRoute(from, to)
+                .orElse(getRoute(to, from)
+                        .orElseThrow(RuntimeException::new));
         Order order = Order.builder()
                 .route(route)
                 .weight(weight)
@@ -133,6 +137,12 @@ public class OrderService {
         try (OrderDao dao = daoFactory.createOrderDao()) {
             logger.info("Updating order paid state id=" + order.getId());
             dao.setPaidById(order);
+        }
+    }
+
+    public Optional<Route> getRoute(String startCity, String endCity) {
+        try (RouteDao dao = daoFactory.createRouteDao()) {
+            return dao.findByStartCityAndEndCity(startCity, endCity);
         }
     }
 

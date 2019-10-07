@@ -190,7 +190,7 @@
                                                            style="font-size: 32px;"></i></div>
                                 <div class="form-group"><input class="form-control" type="email" name="email" required
                                                                placeholder=
-                                                               <fmt:message key="email"/>/></div>
+                                                               <fmt:message key="email"/>></div>
                                 <div class="form-group"><input class="form-control" type="password" name="pass" required
                                                                placeholder=<fmt:message key="password"/>></div>
                                 <div class="form-group">
